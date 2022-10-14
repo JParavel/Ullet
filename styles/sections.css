@@ -1,0 +1,72 @@
+.header-section{
+    background-image: linear-gradient(var(--color3), var(--color2));
+    border-radius: 0 0 16rem 0;
+}
+
+.nav{
+    max-width: 100rem;
+}
+
+.banner{
+    padding: 5rem 0;
+}
+
+.title{
+    color: white;
+}
+
+.slogan{
+    color: white;
+    width: 30rem;
+}
+
+.download-button{
+    width: 30rem;
+}
+
+.card-image{  
+    max-width: 70%;
+    justify-self: center;
+    align-self: flex-end;
+}
+
+/*INFORMATION SECTION*/
+
+.demo-image{
+    justify-self: center;
+    height: 40rem;
+}
+
+/*USAGE SECTION*/
+.usage-section{
+    background-image: linear-gradient(var(--color2),var(--color3));
+    border-radius: 16rem 0 0 0;
+    padding: 5rem;
+    text-align: center;
+}
+
+.information-title, .information-text{
+    color: white;
+}
+
+/*FOOTER SECTION*/
+.footer-section{
+    background-color: #232323;
+}
+
+.footer{
+    max-width: 100rem;
+}
+
+/*SESION*/
+
+.current-money{
+    grid-column-start: 1;
+    grid-row-start: 2;
+}
+
+.transaction-history{
+    grid-column-start: 2;
+    grid-column-end: span 2;
+    grid-row-end: span 2;
+}
