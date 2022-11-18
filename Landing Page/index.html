@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ullet</title>
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/layout.css">
+    <link rel="stylesheet" href="styles/sections.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <script src="login.js"></script>
+</head>
+
+<body>
+    <header class="header-section section">
+
+        <nav class="flex align-center container nav">
+            <a href="" class="flex-grow">
+                <img src="Media/Logo.svg" alt="Logo Ullet">
+            </a>
+            <a href="sesion.html">INGRESAR</a>
+            <button class="button" onclick="showLoginWindow()">CREAR CUENTA</button>
+        </nav>
+
+        <div class="grid columns-2 container banner">
+            <div class="flex direction-column align-baseline justify-center">
+                <h1 class="title">Tus pagos rápidos y efectivos</h1>
+                <p class="slogan">Comprar productos en la institución nunca había sido tan fácil</p>
+                <button class="download-button button">DESCARGA YA LA APP</button>
+            </div>
+            <img class="card-image column-start-2" src="Media/Ullet Card.png" alt="Ullet Card">
+        </div>
+
+        <div class="flex align-center justify-center popup hidden" id="login-popup">
+            <div class="flex direction-column align-center login-section section">
+                <button class="close-button button" onclick="hideLoginWindow()">X</button>
+                <form action="" class="flex direction-column login-form">
+                    <p class="login-title">Crear Cuenta</p>
+                    <label for="">Teléfono</label>
+                    <input type="text">
+                    <label for="">Contraseña</label>
+                    <input type="text">
+                    <button class="button submit-button">REGISTRARSE</button>
+                    <p class="login-text">O ingresa usando</p>
+                    <img class="microsoft-icon" src="Media/microsoft.png" alt="microsoft">
+                </form>
+            </div>
+        </div>
+
+    </header>
+
+    <section class="information-section section">
+
+        <div class="grid columns-2 container">
+            <img class="demo-image" src="Media/App Demo.png" alt="App Demo">
+            <div class="flex direction-column justify-center">
+                <h1>Más rápido que nunca</h1>
+                <p>Una cartera virtual para realizar pagos dentro de cualquier punto de venta en la universidad,
+                    haciendo uso únicamente de tu celular, sin necesidad de tarjetas bancarias o dinero en efectivo.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="usage-section section">
+
+        <div class="flex direction-column align-center container">
+            <h1 class="information-title">Fácil y práctico</h1>
+            <p class="information-text">Transfiere dinero desde cualquier cuenta bancaria a la aplicación para generar
+                un saldo, acércate a
+                cualquier punto de venta de la universidad, pide tu producto y escanea un código QR desde la app para
+                pagarlo.</p>
+        </div>
+
+    </section>
+
+    <footer class="footer-section section">
+
+        <div class="flex align-center justify-between container footer">
+            <a href="#">
+                <img src="Media/Logo.svg" alt="Logo">
+            </a>
+            <button class="wire-button help-button">AYUDA</button>
+        </div>
+    </footer>
+
+</body>
+
+</html>
