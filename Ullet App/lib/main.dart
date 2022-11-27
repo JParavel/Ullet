@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:platzi_trip_flutter/pages/my_home_page.dart';
 import 'package:platzi_trip_flutter/pages/payment_page.dart';
+import 'package:platzi_trip_flutter/pages/profile_page.dart';
 import 'package:get/get.dart';
 
 void main() {
