@@ -7,6 +7,7 @@ class AppLargeButton extends StatelessWidget {
    final Color? textColor;
    final Function()? onTap;
    final bool? isBorder;
+
    const AppLargeButton({Key? key,
      this.backgroundColor:AppColor.mainColor,
      required this.text,
