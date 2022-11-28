@@ -17,7 +17,7 @@ class _VerifyNumState extends State<VerifyNum> {
   Widget _resendMesgButton() {
     return Column(
       children: <Widget>[
-        Text("Didnt you recive the message?"),
+        Text("No  recibiste el mensaje?"),
         TextButton(
             onPressed: () async {
               setState(() => _isLoading = true);
@@ -27,7 +27,7 @@ class _VerifyNumState extends State<VerifyNum> {
                 _isSended = true;
               });
             },
-            child: Text(_isLoading?"Sending...":"Resend")),
+            child: Text(_isLoading ? "Enviando..." : "Reenviar")),
       ],
     );
   }
@@ -36,15 +36,15 @@ class _VerifyNumState extends State<VerifyNum> {
     return Column(
       children: <Widget>[
         Text(
-          "Message sended!",
+          "Mensaje enviado!",
           style: TextStyle(color: Colors.green),
         ),
       ],
     );
   }
 
-  Widget _bottomWidget(){
-    return _isSended?_resendMesg():_resendMesgButton();
+  Widget _bottomWidget() {
+    return _isSended ? _resendMesg() : _resendMesgButton();
   }
 
   @override
@@ -58,6 +58,7 @@ class _VerifyNumState extends State<VerifyNum> {
       child: Stack(
         children: <Widget>[
           Container(
+            color: AppColor.backGroundColor,
             alignment: Alignment.topCenter,
             padding: EdgeInsets.all(10),
             child: Icon(Icons.drag_handle),
@@ -75,16 +76,21 @@ class _VerifyNumState extends State<VerifyNum> {
                   height: 10,
                 ),
                 Text(
-                  "Verify your messages",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
+                  "Verifica tus mensajes",
+                  style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w600),
                 ),
                 SizedBox(
                   height: 20,
                 ),
                 Text(
-                  "We have send you a verification message to your number\n"
-                  "to continue with the registration process",
-                  style: TextStyle(fontStyle: FontStyle.italic),
+                  "Te hemos enviado un mensaje de verificacion a este\n"
+                  "numero para poder continuar con el proceso de registro",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.italic),
                 ),
                 SizedBox(
                   height: 10,

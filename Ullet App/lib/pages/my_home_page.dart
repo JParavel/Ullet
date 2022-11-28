@@ -21,9 +21,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final DataController _controller = Get.put(DataController());
+  bool _isDemo=false;
 
   @override
   Widget build(BuildContext context) {
+    _isDemo = _controller.isDemo;
     double h = MediaQuery.of(context).size.height;
     double w = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -152,7 +154,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     iconColor: AppColor.mainColor,
                                     textColor: Colors.white,
                                     backgroundColor: Colors.white,
-                                    onTap: () => wPushReplacement(context, Login()),
+                                    onTap: () =>
+                                        wPushReplacement(context, Login()),
                                     text: 'Log out',
                                   )
                                 ],
@@ -216,7 +219,10 @@ class _MyHomePageState extends State<MyHomePage> {
           removeTop: true,
           context: context,
           child: ListView.builder(
-            itemCount: _controller.list.length,
+            itemCount:
+                _isDemo
+                    ? _controller.listDemo.length
+                    : _controller.list.length,
             itemBuilder: (_, index) {
               return Container(
                 margin: const EdgeInsets.only(top: 15),
@@ -254,11 +260,17 @@ class _MyHomePageState extends State<MyHomePage> {
                                       width: 3,
                                       color: Colors.grey,
                                     ),
-                                    image: DecorationImage(
-                                        fit: BoxFit.cover,
-                                        image: NetworkImage(
-                                            "http://flutter.bslmeiyu.com/uploads/"+
-                                            _controller.list[index].brand_logo))),
+                                    image: _isDemo
+                                        ? DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: AssetImage(_controller
+                                                .listDemo[index]["logo"]))
+                                        : DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: NetworkImage(
+                                                "http://flutter.bslmeiyu.com/uploads/" +
+                                                    _controller.list[index]
+                                                        .brand_logo))),
                               ),
                               SizedBox(
                                 width: 10,
@@ -267,7 +279,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    _controller.list[index].brand_name,
+                                    _isDemo
+                                        ? _controller.listDemo[index]["brand"]
+                                        : _controller.list[index].brand_name,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: AppColor.mainColor),
@@ -276,7 +290,11 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 10,
                                   ),
                                   Text(
-                                    'ID: ' + _controller.list[index].brand_id,
+                                    _isDemo
+                                        ? 'ID: ' +
+                                            _controller.listDemo[index]["id"]
+                                        : 'ID: ' +
+                                            _controller.list[index].brand_id,
                                     style: TextStyle(
                                         fontSize: 16,
                                         color: AppColor.mainColor),
@@ -286,7 +304,9 @@ class _MyHomePageState extends State<MyHomePage> {
                             ],
                           ),
                           SizedText(
-                              text: _controller.list[index].due_info,
+                              text: _isDemo
+                                  ? _controller.listDemo[index]["more"]
+                                  : _controller.list[index].due_info,
                               color: AppColor.green),
                           SizedBox(
                             height: 5,
@@ -300,34 +320,65 @@ class _MyHomePageState extends State<MyHomePage> {
                             children: [
                               GestureDetector(
                                 onTap: () {
-                                  if(_controller.list[index].status==0){
-                                    _controller.list[index].status=1;
-                                  }else if(_controller.list[index].status==1){
-                                    _controller.list[index].status=0;
+                                  if (_isDemo) {
+                                    _controller.listDemo[index]["status"] =
+                                        !_controller.listDemo[index]["status"];
+                                    _controller.listDemo.refresh();
+                                  } else {
+                                    if (_controller.list[index].status == 0) {
+                                      _controller.list[index].status = 1;
+                                    } else if (_controller.list[index].status ==
+                                        1) {
+                                      _controller.list[index].status = 0;
+                                    }
+                                    _controller.list.refresh();
                                   }
-                                  _controller.list.refresh();
-                                  },
+                                },
                                 child: Container(
                                   width: 80,
                                   height: 30,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(30),
-                                      color: _controller.list[index].status==0?
-                                      AppColor.selectBackground:AppColor.green),
+                                  decoration: _isDemo
+                                      ? BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color: _controller.listDemo[index]
+                                                  ["status"]
+                                              ? AppColor.selectBackground
+                                              : AppColor.green)
+                                      : BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(30),
+                                          color:
+                                              _controller.list[index].status ==
+                                                      0
+                                                  ? AppColor.selectBackground
+                                                  : AppColor.green),
                                   child: Center(
                                     child: Text(
                                       'Detalles',
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: _controller.list[index].status==0?
-                                      AppColor.selectColor:Colors.white),
+                                      style: _isDemo
+                                          ? TextStyle(
+                                              fontSize: 12,
+                                              color: _controller.listDemo[index]
+                                                      ["status"]
+                                                  ? AppColor.selectColor
+                                                  : Colors.white)
+                                          : TextStyle(
+                                              fontSize: 12,
+                                              color: _controller
+                                                          .list[index].status ==
+                                                      0
+                                                  ? AppColor.selectColor
+                                                  : Colors.white),
                                     ),
                                   ),
                                 ),
                               ),
                               Expanded(child: Container()),
                               Text(
-                                '\$' + _controller.list[index].due,
+                                _isDemo
+                                    ? '\$' + _controller.listDemo[index]["due"]
+                                    : '\$' + _controller.list[index].due,
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w900,
@@ -373,13 +424,15 @@ class _MyHomePageState extends State<MyHomePage> {
         bottom: 20,
         child: AppLargeButton(
           text: 'Pay All',
-          textColor: _controller.newList.length==0?
-          AppColor.mainColor:Colors.white,
-          backgroundColor:_controller.newList.length==0?
-          AppColor.selectBackground:AppColor.mainColor,
+          textColor: _controller.newList.length == 0
+              ? AppColor.mainColor
+              : Colors.white,
+          backgroundColor: _controller.newList.length == 0
+              ? AppColor.selectBackground
+              : AppColor.mainColor,
           onTap: () {
-              Get.to(() => PaymentPage());
-            },
+            Get.to(() => PaymentPage());
+          },
         ));
   }
 }

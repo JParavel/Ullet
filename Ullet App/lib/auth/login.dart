@@ -24,8 +24,14 @@ class _LoginState extends State<Login> {
   Widget _inputEmail() {
     return Container(
       child: TextField(
+        style:
+            TextStyle(color: AppColor.selectColor, fontWeight: FontWeight.bold),
         controller: _email,
-        decoration: InputDecoration(hintText: 'Phone'),
+        decoration: InputDecoration(
+          hintText: 'Celular',
+          hintStyle: TextStyle(
+              color: AppColor.selectColor.withOpacity(0.5), fontWeight: FontWeight.bold),
+        ),
         keyboardType: TextInputType.number,
         inputFormatters: <TextInputFormatter>[
           FilteringTextInputFormatter.digitsOnly
@@ -38,10 +44,14 @@ class _LoginState extends State<Login> {
     return Stack(children: <Widget>[
       Container(
         child: TextField(
+          style: TextStyle(
+              color: AppColor.selectColor, fontWeight: FontWeight.bold),
           controller: _pass,
           obscureText: _ocult,
           decoration: InputDecoration(
             hintText: 'Pin',
+            hintStyle: TextStyle(
+                color: AppColor.selectColor.withOpacity(0.5), fontWeight: FontWeight.bold),
           ),
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
@@ -67,15 +77,13 @@ class _LoginState extends State<Login> {
     return Container(
       width: double.infinity,
       child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColor.mainColor
-        ),
+        style: ElevatedButton.styleFrom(backgroundColor: AppColor.mainColor),
         icon: Icon(
           Icons.send,
           size: 20,
           textDirection: TextDirection.ltr,
         ),
-        label: Text("Login"),
+        label: Text("Ingresar"),
         onPressed: () {
           _loginS();
         },
@@ -92,28 +100,44 @@ class _LoginState extends State<Login> {
           : Scaffold(
               resizeToAvoidBottomInset: false,
               body: Container(
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    wAuthTitle(
-                        title: "Login",
-                        subtitle: "Enter your email and password"),
-                    _inputEmail(),
-                    _inputPass(),
-                    wForgotPass(context),
-                    _inputSubmit(),
-                    wRegister(
-                      context: context,
-                      title: "Register",
-                      text: "Dont have an account?",
-                      function: Register(),
+                child: Stack(children: [
+                  _mainBackground(context),
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        wAuthTitle(
+                            title: "Ingreso",
+                            subtitle: "Escribe tus credenciales"),
+                        _inputEmail(),
+                        _inputPass(),
+                        wForgotPass(context),
+                        _inputSubmit(),
+                        wRegister(
+                          context: context,
+                          title: "Registrarse",
+                          text: "Aun no tienes una cuenta?",
+                          function: Register(),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ]),
               ),
             ),
     );
+  }
+
+  _mainBackground(BuildContext context) {
+    return Positioned(
+        child: Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover, image: AssetImage("images/background.png"))),
+    ));
   }
 
   void _loginS() async {

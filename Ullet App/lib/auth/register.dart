@@ -27,8 +27,14 @@ class _RegisterState extends State<Register> {
     return Container(
       child: TextField(
         controller: _name,
-        decoration: InputDecoration(hintText: 'Name',
-        helperText: "Full Name"),
+        decoration: InputDecoration(
+          hintText: 'Name',
+          helperText: "Full Name",
+          hintStyle: TextStyle(
+              color: AppColor.selectColor.withOpacity(0.5), fontWeight: FontWeight.bold),
+          helperStyle: TextStyle(
+              color: AppColor.selectColor, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
@@ -37,8 +43,34 @@ class _RegisterState extends State<Register> {
     return Container(
       child: TextField(
         controller: _email,
-        decoration: InputDecoration(hintText: 'Phone',
-        helperText: "Phone Number"),
+        decoration: InputDecoration(
+          hintText: 'Email',
+          helperText: "Correo electronico",
+          hintStyle: TextStyle(
+              color: AppColor.selectColor.withOpacity(0.5), fontWeight: FontWeight.bold),
+          helperStyle: TextStyle(
+              color: AppColor.selectColor, fontWeight: FontWeight.bold),
+        ),
+      ),
+    );
+  }
+
+  Widget _inputPhone() {
+    return Container(
+      child: TextField(
+        controller: _email,
+        decoration: InputDecoration(
+          hintText: 'Phone',
+          helperText: "Phone Number",
+          hintStyle: TextStyle(
+              color: AppColor.selectColor.withOpacity(0.5), fontWeight: FontWeight.bold),
+          helperStyle: TextStyle(
+              color: AppColor.selectColor, fontWeight: FontWeight.bold),
+        ),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ],
       ),
     );
   }
@@ -47,12 +79,20 @@ class _RegisterState extends State<Register> {
     return Row(children: <Widget>[
       Expanded(
         child: TextField(
-            controller: _pass,
-            obscureText: _ocult,
-            decoration: InputDecoration(hintText: '****', helperText: "Pin"),
-            keyboardType: TextInputType.number,
-            inputFormatters: <TextInputFormatter>[
-            FilteringTextInputFormatter.digitsOnly],
+          controller: _pass,
+          obscureText: _ocult,
+          decoration: InputDecoration(
+            hintText: '****',
+            helperText: "Pin",
+            hintStyle: TextStyle(
+                color: AppColor.selectColor.withOpacity(0.5), fontWeight: FontWeight.bold),
+            helperStyle: TextStyle(
+                color: AppColor.selectColor, fontWeight: FontWeight.bold),
+          ),
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
         ),
       ),
       SizedBox(
@@ -60,13 +100,20 @@ class _RegisterState extends State<Register> {
       ),
       Expanded(
         child: TextField(
-            controller: _passVer,
-            obscureText: _ocult,
-            decoration: InputDecoration(
-                hintText: '****', helperText: "Pin Confirmation"),
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.digitsOnly],
+          controller: _passVer,
+          obscureText: _ocult,
+          decoration: InputDecoration(
+            hintText: '****',
+            helperText: "Pin Confirmation",
+            hintStyle: TextStyle(
+                color: AppColor.selectColor.withOpacity(0.5), fontWeight: FontWeight.bold),
+            helperStyle: TextStyle(
+                color: AppColor.selectColor, fontWeight: FontWeight.bold),
+          ),
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
         ),
       )
     ]);
@@ -76,10 +123,8 @@ class _RegisterState extends State<Register> {
     return Container(
       width: double.infinity,
       child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-            backgroundColor: AppColor.mainColor
-        ),
-          icon: Icon(
+        style: ElevatedButton.styleFrom(backgroundColor: AppColor.mainColor),
+        icon: Icon(
           Icons.send,
           size: 20,
         ),
@@ -98,45 +143,62 @@ class _RegisterState extends State<Register> {
       child: _isLoading
           ? wAppLoading()
           : Scaffold(
-              appBar: AppBar(
-                backgroundColor: Colors.transparent,
-                elevation: 0,
-                iconTheme: IconThemeData(color: Colors.black),
-              ),
+              //appBar: AppBar(
+              //  backgroundColor: Colors.transparent,
+              //  elevation: 0,
+              //  iconTheme: IconThemeData(color: Colors.black),
+              //),
               resizeToAvoidBottomInset: false,
-              body: SafeArea(
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(
-                        height: 20,
+              body: Stack(
+                children: [
+                  _mainBackground(context),
+                  SafeArea(
+                    child: Container(
+                      margin: EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          SizedBox(
+                            height: 20,
+                          ),
+                          wAuthTitle(
+                              title: "Register",
+                              subtitle: "Register your phone number and pin"),
+                          _inputName(),
+                          _inputEmail(),
+                          _inputPhone(),
+                          _inputPass(),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          _inputSubmit(),
+                          wDivider(),
+                          wGoogleSign(onTap: () {}),
+                          wRegister(
+                            context: context,
+                            title: "Login",
+                            text: "Already have an account?",
+                            function: Login(),
+                          ),
+                        ],
                       ),
-                      wAuthTitle(
-                          title: "Register",
-                          subtitle: "Register your phone number and pin"),
-                      _inputName(),
-                      _inputEmail(),
-                      _inputPass(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _inputSubmit(),
-                      wDivider(),
-                      wGoogleSign(onTap: () {}),
-                      wRegister(
-                        context: context,
-                        title: "Login",
-                        text: "Already have an account?",
-                        function: Login(),
-                      ),
-                    ],
-                  ),
-                ),
+                    ),
+                  )
+                ],
               ),
             ),
     );
+  }
+
+  _mainBackground(BuildContext context) {
+    return Positioned(
+        child: Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover, image: AssetImage("images/background.png"))),
+    ));
   }
 
   void _registerS() async {
@@ -149,8 +211,9 @@ class _RegisterState extends State<Register> {
       await Future.delayed(Duration(seconds: 2));
       wPushReplacement(context, Login());
 
-      showModalBottomSheet(context: context,
-          builder: (context){
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
             return VerifyNum();
           });
     } else {

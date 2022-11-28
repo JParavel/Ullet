@@ -6,6 +6,13 @@ import 'package:platzi_trip_flutter/models/data_model.dart';
 class DataServices{
   String _baseUrl ='http://flutter.bslmeiyu.com/api/';
 
+  Future<List<dynamic>> getUsersDemo()async{
+    var info = rootBundle.loadString("json/data.json");
+    List<dynamic> list = json.decode(await info);
+    print(list);
+    return list.map((e) => e).toList();
+  }
+
   Future<List<DataModel>> getUsers() async {
     var apiUrl ='/billinfo';
 

@@ -18,6 +18,7 @@ Widget wAuthTitle({required String title, required String subtitle}) {
         Text(
           title,
           style: TextStyle(
+            color: AppColor.selectColor,
             fontSize: 22,
             fontWeight: FontWeight.bold,
           ),
@@ -25,7 +26,10 @@ Widget wAuthTitle({required String title, required String subtitle}) {
         SizedBox(
           height: 5,
         ),
-        Text(subtitle),
+        Text(subtitle,style: TextStyle(
+          color: AppColor.selectColor,
+          fontWeight: FontWeight.w600
+        ),),
       ],
     ),
   );
@@ -40,20 +44,29 @@ Widget wRegister(
       child: Align(
         alignment: Alignment.centerLeft,
         child: Container(
-          padding: EdgeInsets.fromLTRB(0, 20, 20, 20),
-          child: Center(
-            child: Row(
-              children: [
-                Text(text),
-                SizedBox(width: 10,),
-                Text(title,
+            padding: EdgeInsets.fromLTRB(0, 20, 20, 20),
+            child: Center(
+              child: Row(
+                children: [
+                  Text(text,
                   style: TextStyle(
-                    fontWeight: FontWeight.bold
-                  ),),
-              ],
-            ),
-          )
-        ),
+                    color: AppColor.selectColor,
+                    fontWeight: FontWeight.w600
+                  ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    title,
+                    style: TextStyle(
+                        fontSize: 15,
+                        color: AppColor.selectColor,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+            )),
       ),
       onTap: () => wPushReplacement(context, function));
 }
@@ -84,9 +97,7 @@ Widget wDivider() {
 Widget wGoogleSign({required Function onTap}) {
   return Container(
     child: ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-          backgroundColor: AppColor.mainColor
-      ),
+      style: ElevatedButton.styleFrom(backgroundColor: AppColor.mainColor),
       icon: Icon(
         MdiIcons.google,
         size: 20,

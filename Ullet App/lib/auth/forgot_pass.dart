@@ -20,8 +20,13 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Container(
       child: TextField(
         controller: _email,
-        decoration:
-            InputDecoration(hintText: 'Phone', helperText: "Escribe tu telefono"),
+        decoration: InputDecoration(
+            hintText: 'Celular', helperText: "Escriba su celular",
+          hintStyle: TextStyle(
+              color: AppColor.selectColor.withOpacity(0.5), fontWeight: FontWeight.bold),
+          helperStyle: TextStyle(
+              color: AppColor.selectColor, fontWeight: FontWeight.bold),
+        ),
       ),
     );
   }
@@ -35,7 +40,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
           Icons.send,
           size: 20,
         ),
-        label: Text("Send"),
+        label: Text("Enviar"),
         onPressed: () {
           _loginS();
         },
@@ -56,24 +61,43 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 iconTheme: IconThemeData(color: Colors.black),
               ),
               resizeToAvoidBottomInset: false,
-              body: Container(
-                padding: EdgeInsets.only(top: 30),
-                margin: EdgeInsets.symmetric(horizontal: 20),
-                child: Column(
-                  children: <Widget>[
-                    wAuthTitle(
-                        title: "Forgot Password",
-                        subtitle:
-                            "Enter your phone number\ 'll send you a link"
-                            "\nto reset your security pin "),
-                    _inputEmail(),
-                    SizedBox(height: 20,),
-                    _inputSubmit(),
-                  ],
-                ),
+              body: Stack(
+                children: [
+                  _mainBackground(context),
+                  Container(
+                    padding: EdgeInsets.only(top: 30),
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: <Widget>[
+                        wAuthTitle(
+                            title: "Olvido su pin",
+                            subtitle:
+                                "Escriba su numero telefonico asociado a su cuenta\n"
+                                "Se le enviara un enlace para recuperar   "
+                                "\nsu pin de seguridad"),
+                        _inputEmail(),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        _inputSubmit(),
+                      ],
+                    ),
+                  )
+                ],
               ),
             ),
     );
+  }
+
+  _mainBackground(BuildContext context) {
+    return Positioned(
+        child: Container(
+      height: MediaQuery.of(context).size.height,
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+              fit: BoxFit.cover, image: AssetImage("images/background.png"))),
+    ));
   }
 
   void _loginS() async {
@@ -82,7 +106,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
         _isLoading = true;
       });
       await Future.delayed(Duration(seconds: 2));
-      wShowToast(msg: "Email sended, please check your inbox");
+      wShowToast(
+          msg: "Correo enviado, por favor registra tu bandeja de entrada");
       Navigator.pop(context);
     } else {
       print("Aqui no rey");
