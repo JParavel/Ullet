@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:platzi_trip_flutter/component/colors.dart';
 import 'package:platzi_trip_flutter/controllers/data_controllers.dart';
 import 'package:platzi_trip_flutter/pages/payment_page.dart';
@@ -7,6 +8,9 @@ import 'package:platzi_trip_flutter/widgets/buttons.dart';
 import 'package:platzi_trip_flutter/widgets/large_buttons.dart';
 import 'package:platzi_trip_flutter/widgets/text_size.dart';
 import 'package:get/get.dart';
+import 'package:platzi_trip_flutter/widgets/widgets.dart';
+
+import '../auth/login.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -136,19 +140,19 @@ class _MyHomePageState extends State<MyHomePage> {
                                     },
                                   ),
                                   AppButtons(
-                                    icon: Icons.login,
+                                    icon: MdiIcons.faceManProfile,
                                     iconColor: AppColor.mainColor,
                                     textColor: Colors.white,
                                     backgroundColor: Colors.white,
                                     onTap: () {},
-                                    text: 'Login',
+                                    text: 'Profile',
                                   ),
                                   AppButtons(
                                     icon: Icons.logout,
                                     iconColor: AppColor.mainColor,
                                     textColor: Colors.white,
                                     backgroundColor: Colors.white,
-                                    onTap: () {},
+                                    onTap: () => wPushReplacement(context, Login()),
                                     text: 'Log out',
                                   )
                                 ],
@@ -374,9 +378,8 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor:_controller.newList.length==0?
           AppColor.selectBackground:AppColor.mainColor,
           onTap: () {
-            if(_controller.newList.length>0) {
               Get.to(() => PaymentPage());
-            }},
+            },
         ));
   }
 }

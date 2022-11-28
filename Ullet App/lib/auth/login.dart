@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:platzi_trip_flutter/auth/register.dart';
+import 'package:platzi_trip_flutter/component/colors.dart';
 
 import '../pages/my_home_page.dart';
 import '../widgets/widget_auth.dart';
@@ -23,7 +25,11 @@ class _LoginState extends State<Login> {
     return Container(
       child: TextField(
         controller: _email,
-        decoration: InputDecoration(hintText: 'Email'),
+        decoration: InputDecoration(hintText: 'Phone'),
+        keyboardType: TextInputType.number,
+        inputFormatters: <TextInputFormatter>[
+          FilteringTextInputFormatter.digitsOnly
+        ],
       ),
     );
   }
@@ -32,11 +38,16 @@ class _LoginState extends State<Login> {
     return Stack(children: <Widget>[
       Container(
         child: TextField(
-            controller: _pass,
-            obscureText: _ocult,
-            decoration: InputDecoration(
-              hintText: 'Password',
-            )),
+          controller: _pass,
+          obscureText: _ocult,
+          decoration: InputDecoration(
+            hintText: 'Pin',
+          ),
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
+        ),
       ),
       Align(
         alignment: Alignment.centerRight,
@@ -56,9 +67,13 @@ class _LoginState extends State<Login> {
     return Container(
       width: double.infinity,
       child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColor.mainColor
+        ),
         icon: Icon(
           Icons.send,
           size: 20,
+          textDirection: TextDirection.ltr,
         ),
         label: Text("Login"),
         onPressed: () {
@@ -89,9 +104,11 @@ class _LoginState extends State<Login> {
                     wForgotPass(context),
                     _inputSubmit(),
                     wRegister(
-                        text: "Dont have an acount yet?",
-                        title: "Register",
-                        onTap: ()=>wPushReplacement(context, Register())),
+                      context: context,
+                      title: "Register",
+                      text: "Dont have an account?",
+                      function: Register(),
+                    ),
                   ],
                 ),
               ),
@@ -100,7 +117,7 @@ class _LoginState extends State<Login> {
   }
 
   void _loginS() async {
-    if (_email.text == 'holamundo' && _pass.text == '123') {
+    if (_email.text == '123' && _pass.text == '123') {
       setState(() {
         _isLoading = true;
       });

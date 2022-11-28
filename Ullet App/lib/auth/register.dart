@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:platzi_trip_flutter/auth/login.dart';
+import 'package:platzi_trip_flutter/auth/verify_number.dart';
+import '../component/colors.dart';
 import '../widgets/widget_auth.dart';
 import '../widgets/widgets.dart';
 
@@ -24,7 +27,8 @@ class _RegisterState extends State<Register> {
     return Container(
       child: TextField(
         controller: _name,
-        decoration: InputDecoration(hintText: 'Name'),
+        decoration: InputDecoration(hintText: 'Name',
+        helperText: "Full Name"),
       ),
     );
   }
@@ -33,7 +37,8 @@ class _RegisterState extends State<Register> {
     return Container(
       child: TextField(
         controller: _email,
-        decoration: InputDecoration(hintText: 'Email'),
+        decoration: InputDecoration(hintText: 'Phone',
+        helperText: "Phone Number"),
       ),
     );
   }
@@ -44,16 +49,25 @@ class _RegisterState extends State<Register> {
         child: TextField(
             controller: _pass,
             obscureText: _ocult,
-            decoration: InputDecoration(hintText: '****', helperText: "Pin")),
+            decoration: InputDecoration(hintText: '****', helperText: "Pin"),
+            keyboardType: TextInputType.number,
+            inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly],
+        ),
       ),
       SizedBox(
         width: 20,
       ),
       Expanded(
         child: TextField(
-            controller: _pass,
+            controller: _passVer,
             obscureText: _ocult,
-            decoration: InputDecoration(hintText: '****', helperText: "Pin")),
+            decoration: InputDecoration(
+                hintText: '****', helperText: "Pin Confirmation"),
+                keyboardType: TextInputType.number,
+                inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.digitsOnly],
+        ),
       )
     ]);
   }
@@ -62,7 +76,10 @@ class _RegisterState extends State<Register> {
     return Container(
       width: double.infinity,
       child: ElevatedButton.icon(
-        icon: Icon(
+        style: ElevatedButton.styleFrom(
+            backgroundColor: AppColor.mainColor
+        ),
+          icon: Icon(
           Icons.send,
           size: 20,
         ),
@@ -81,6 +98,11 @@ class _RegisterState extends State<Register> {
       child: _isLoading
           ? wAppLoading()
           : Scaffold(
+              appBar: AppBar(
+                backgroundColor: Colors.transparent,
+                elevation: 0,
+                iconTheme: IconThemeData(color: Colors.black),
+              ),
               resizeToAvoidBottomInset: false,
               body: SafeArea(
                 child: Container(
@@ -88,15 +110,27 @@ class _RegisterState extends State<Register> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       wAuthTitle(
                           title: "Register",
                           subtitle: "Register your phone number and pin"),
                       _inputName(),
                       _inputEmail(),
                       _inputPass(),
-                      SizedBox(height: 20,),
+                      SizedBox(
+                        height: 20,
+                      ),
                       _inputSubmit(),
+                      wDivider(),
+                      wGoogleSign(onTap: () {}),
+                      wRegister(
+                        context: context,
+                        title: "Login",
+                        text: "Already have an account?",
+                        function: Login(),
+                      ),
                     ],
                   ),
                 ),
@@ -114,6 +148,11 @@ class _RegisterState extends State<Register> {
       });
       await Future.delayed(Duration(seconds: 2));
       wPushReplacement(context, Login());
+
+      showModalBottomSheet(context: context,
+          builder: (context){
+            return VerifyNum();
+          });
     } else {
       print("Aqui no rey");
     }
