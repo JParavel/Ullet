@@ -3,6 +3,7 @@ import 'package:platzi_trip_flutter/pages/my_home_page.dart';
 import 'package:platzi_trip_flutter/pages/payment_page.dart';
 import 'package:platzi_trip_flutter/pages/profile_page.dart';
 import 'package:get/get.dart';
+import 'package:platzi_trip_flutter/splashs/splash.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(),
+      home: Splash(),
     );
   }
 }
