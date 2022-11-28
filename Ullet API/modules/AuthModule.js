@@ -3,9 +3,10 @@ import userModel from "../models/userModel.js";
 export async function authenticate(req){
 
     const header = req.body.header
-    const phone = header.phone;
-    const pin = header.pin;
-    const key = header.key;
+
+    if(!header) return null;
+
+    const {phone, pin, key} = req.body.header
 
     const user = await userModel.findOne({phone})
 
