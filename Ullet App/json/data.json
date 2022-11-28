@@ -1,0 +1,20 @@
+[
+  {
+    "logo": "images/brand1.png",
+    "brand": "KenGen Power",
+    "id": "121341",
+    "date": "12-08-2002",
+    "status": false,
+    "due": "1280.00",
+    "more": "Pay before"
+  },
+  {
+    "logo": "images/brand2.png",
+    "brand": "KenGen Power",
+    "id": "121341",
+    "date": "12-08-2002",
+    "status": false,
+    "due": "1280.00",
+    "more": "Pay before"
+  }
+]
