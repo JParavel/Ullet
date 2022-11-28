@@ -20,3 +20,6 @@ mongoose.connect(`mongodb+srv://${user}:${password}@${host}/${database}?retryWri
 app.use(express.json())
 app.use("/user", userRouter)
 app.use("/payment", paymentRouter)
+app.use("/", (req, res)=>{
+    res.json("💵 Bienvenido a Ullet API 💵")
+})
