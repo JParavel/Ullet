@@ -2,36 +2,17 @@ import mongoose from "mongoose";
 import genKey from "../utils/keyGen.js";
 
 const userModel = mongoose.Schema({
-    "first name":{
-        type:String,
-        required: [true, "need to retrive a first name"]
-    },
-    "last name":{
-        type:String,
-        required: [true, "need to retrive a last name"]
-    },
-    email:{
-        type:String,
-        required: true,
-        unique: [true, "need to retrive an email"]
-    },
-    phone:{
-        type:String,
-        required: [true, "need to retrive a phone number"]
-    },
-    pin:{
-        type: Number,
-        required: [true, "need to retrive an access pin"]
-    },
-    "active":{
-        type: Boolean,
-        default: true
-    },
-    key:{
-        type: String,
-        default: genKey(20),
-        set: v => genKey(20)
-    }
+
+    userID: {type: String, default: genKey(10), immutable:true},
+    firstName: {type: String, required:[true, "firstName field is missing"]},
+    lastName: {type: String, required:[true, "lastName field is missing"]},
+    email: { type: String, required:[true, "email field is missing"], unique: [true, "email already exist"] },
+    phone: { type: String, required:[true, "phone field is missing"], unique: [true, "phone already exist"] },
+    pin: { type: Number, required:[true, "must submit a pin"]},
+    key: { type: String, default: genKey(20), immutable: true },
+    balance: {type: Number, default: 0},
+    active: { type: Boolean, default: true }
+
 })
 
 export default mongoose.model("users", userModel)

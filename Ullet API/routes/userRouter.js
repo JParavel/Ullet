@@ -3,7 +3,7 @@ import { createUser, deleteUser, readUser, updateUser } from "../controllers/use
 
 const router = express.Router()
 
-router.post("/new", (req, res) =>{
+router.post("/", (req, res) =>{
     createUser(req, res)
 })
 router.get("/", (req, res) => {
