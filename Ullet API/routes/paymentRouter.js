@@ -3,7 +3,7 @@ import { createPayment } from "../controllers/paymentController.js";
 
 const router = express.Router()
 
-router.put("/", (req, res) => {
+router.post("/", (req, res) => {
     createPayment(req, res)
 })
 

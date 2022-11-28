@@ -1,5 +1,6 @@
 import express from "express"
 import mongoose from "mongoose";
+import debitRouter from "./routes/debitRouter.js";
 import paymentRouter from "./routes/paymentRouter.js";
 import userRouter from "./routes/userRouter.js";
 
@@ -15,11 +16,14 @@ app.listen(port, ()=>{
     console.log("Server running on port "+ port);
 })
 
-mongoose.connect(`mongodb+srv://${user}:${password}@${host}/${database}?retryWrites=true&w=majority`)
+// mongoose.connect(`mongodb+srv://${user}:${password}@${host}/${database}?retryWrites=true&w=majority`)
+
+mongoose.connect("mongodb+srv://ullet:P4ssw0rd@ullet.fcw9esu.mongodb.net/ullet?retryWrites=true&w=majority")
 
 app.use(express.json())
 app.use("/user", userRouter)
 app.use("/payment", paymentRouter)
+app.use("/debit", debitRouter)
 app.use("/", (req, res)=>{
     res.json("💵 Bienvenido a Ullet API 💵")
 })

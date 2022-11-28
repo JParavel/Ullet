@@ -8,10 +8,16 @@ export async function createPayment(req, res) {
     const { shopID, concept, balance } = req.body
     const user = await authenticate(req)
 
+    if (balance < 1) {
+        return res.sendStatus(401)
+    }
+
     if (user == null) {
         return res.sendStatus(401)
     }
 
+    const userID = user.userID;
+    
     let payment = null
     let transaction = null
 
@@ -26,12 +32,15 @@ export async function createPayment(req, res) {
             concept
         })
 
+        const invoiceID = payment.invoiceID
+
         transaction = await transactionModel.create({
-            userID: user.userID,
-            invoiceID: payment.invoiceID,
+            userID,
+            invoiceID,
             approved,
-            balance
+            balance,
         })
+
     } catch (error) {
         return res.status(400).json(error.message)
     }
@@ -45,5 +54,5 @@ export async function createPayment(req, res) {
         })
     }
 
-    res.sendStatus(201)
+    res.status(201).json(transaction)
 }

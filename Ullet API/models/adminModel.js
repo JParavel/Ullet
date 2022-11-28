@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import genKey from "../utils/keyGen.js";
 
-const userModel = mongoose.Schema({
+const adminModel = mongoose.Schema({
 
     userID: {type: String, default: () => genKey(10), immutable:true},
     firstName: {type: String, required:[true, "firstName field is missing"]},
@@ -15,4 +15,4 @@ const userModel = mongoose.Schema({
 
 })
 
-export default mongoose.model("users", userModel)
+export default mongoose.model("admins", adminModel)
